@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+
+</script>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Markdown zu PDF Konvertierer | Piratenpartei</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav toggled bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon ">
+         <img src="img/logo.png">
+        </div>
+        <div class="sidebar-brand-text mx-3">Piratenkonvertierer</div>
+       
+      </a>
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Konvertieren
+      </div>
+
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-random"></i>
+          <span>Markdown zu PDF</span></a>
+      </li>
+
+      
+
+      <!-- Sidebar Toggler (Sidebar) -->
+         <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+         </div>
+      </ul>
+      <!-- End of Sidebar -->
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Main Content -->
+      <div id="content">
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+         <!-- Sidebar Toggle (Topbar) -->
+         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+         <i class="fa fa-bars"></i>
+         </button>
+         <!-- Topbar Navbar -->
+         <ul class="navbar-nav ml-auto">
+          
+         </ul>
+      </nav>
+      <!-- End of Topbar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+        <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
+            <h1 class="h3 mb-0 text-gray-800">PDF Datei erstellen</h1>
+            
+          </div>
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4 status hiden">
+            <h1 class="h3 mb-0 text-gray-800 statustext"></h1><br>
+            <div class="lds-facebook hiden"><div></div><div></div><div></div></div>
+            <a href="#" class="statusbtn btn btn-success hiden">Datei herunterladen</a>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+            <div class="textarea">
+            <small>Hier Markdown eingeben</small><br>
+            
+              <textarea placeholder="# Das ist eine Überschrift" class="inputmdwn"></textarea><br><br>
+              <button class="btn btn-success btnmdwn">Datei erstellen</button>
+              </div>
+            </div>
+
+          </div>
+
+  
+
+          
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+     
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span><a href="imprint.html">Impressum & Datenschutzerklärung</a></span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-pie-demo.js"></script>
+
+
+<script>
+
+$('.btnmdwn').click(function(){
+        $(".status").addClass("load");
+        $(".status").addClass("shown");
+        $(".statusbtn").removeClass("shown")
+        $(".statustext").html("Sende");
+        $(".lds-facebook").addClass("shown");
+        var formData = new Object();
+        formData.markdown = $('.inputmdwn').val();
+        
+        var result = null;
+        $.ajax({
+            url: `http://127.0.0.1:8080/markdowntopdf`,
+            crossDomain: true,
+            dataType: "JSON",
+            data: formData,
+            type: "POST",
+            encode : true,
+            async: true,
+            success: function(response, status, xhr) {
+                result = response;
+                if (result['status'] == "success") {
+                  
+                  $(".status").removeClass("load");
+                  $(".status").addClass("success");
+                  $(".statustext").html("Daten abgesendet<br><small>Warten auf Datei</small>");
+                  key = result["data"]["key"];
+                  getFile('/checkfile', {'key': key}, 0);
+                  console.log(key);
+                  $(".status").addClass("shown");
+                } else {
+                  $(".status").removeClass("load");
+                $(".status").addClass("fail");
+                $(".status").addClass("shown");
+                $(".statustext").html("Systemfehler");
+                $(".lds-facebook").removeClass("shown");
+                }
+            },
+            error: function(xhr, status, error) {
+                $(".status").removeClass("load");
+                $(".status").addClass("fail");
+                $(".status").addClass("shown");
+                $(".statustext").html("System nicht erreichbar");
+                $(".lds-facebook").removeClass("shown");
+            }
+        });
+        return result;
+    });
+
+function getFile(endpoint, formData, cnt){
+        var formData = formData;
+        var result = null;
+        var cnt = cnt;
+        $.ajax({
+            url: `http://127.0.0.1:8080${endpoint}`,
+            crossDomain: true,
+            dataType: "JSON",
+            data: formData,
+            type: "GET",
+            encode : true,
+            async: true,
+            success: function(response, status, xhr) {
+                result = response;
+                if (response['status'] == "success") {
+                  $(".status").removeClass("fail");
+                  $(".status").addClass("success");
+                  $(".statustext").html("Datei fertig");
+                  $(".statusbtn").addClass("shown");
+                  $(".statusbtn").attr("href", response['data']['url'])
+                  $(".lds-facebook").removeClass("shown");
+                } else {
+                  if (cnt < 20) {
+                    $(".status").removeClass("success");
+                    $(".status").removeClass("fail");
+                    $(".status").addClass("load");
+                    $(".statustext").html("Datei lädt");
+                    $(".statusbtn").removeClass("shown");
+                    $(".lds-facebook").addClass("shown");
+                  } else {
+                    $(".status").removeClass("success");
+                    $(".status").removeClass("load");
+                    $(".status").addClass("fail");
+                    $(".statustext").html("Datei nicht gefunden");
+                    $(".statusbtn").removeClass("shown");
+                    $(".lds-facebook").removeClass("shown");
+                  }
+                  
+                }
+                
+                setTimeout(() => {  getFile('/checkfile', formData, cnt +1); }, 30000);
+            },
+            error: function(xhr, status, error) {
+                $(".statusbtn").removeClass("shown");
+                $(".status").removeClass("success");
+                
+                if (cnt < 70) {
+                  $(".status").addClass("load");
+                  $(".statustext").html("Datei lädt");
+                  setTimeout(() => {  getFile('/checkfile', formData, cnt + 1); }, 5000);
+                } else {
+                  $(".status").addClass("fail");
+                  $(".statustext").html("Datei nicht gefunden");
+                }
+                
+            }
+        });
+        return result;
+    };
+
+
+</script>
+
+</body>
+
+</html>
