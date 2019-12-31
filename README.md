@@ -28,3 +28,12 @@ The database stores the PDF files, there is a dump provided that includes a rout
 5. Setup the frontend, it requires HTML and JavaScript. I recommend a Webserver like Apache. 
 6. The frontend uses 127.0.0.1:8080 for calling the API, if your API is elsewhere please adapt that in the index.html file. 
 
+# Documentation
+
+View the GitHub Wiki
+
+# Known Problems
+## Links not clickable
+
+This is an issue with the `cairo` library on which `weasyprint` depends. Make sure to install a newer version (> 1.15 should fix that).
+
