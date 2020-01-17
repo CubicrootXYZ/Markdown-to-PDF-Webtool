@@ -3,11 +3,6 @@ import configparser, falcon, os, logging, pytz, datetime, json, pdfkit, markdown
 from orator import DatabaseManager, Model
 from weasyprint import HTML
 
-try:
-    os.chdir("D:\github_repos\mdwntopdf\\api")
-except: 
-    os.chdir("/home/alexander/github_repos/mdwntopdf/api")
-
 head = """
         <style>
  
@@ -69,8 +64,7 @@ def makePdfFromHtml(self, html, title):
         'margin-bottom': '25mm',
         'margin-left': '25mm',
         'encoding': "UTF-8",
-        'footer-html': 'D:\github_repos\mdwntopdf\\api\\templates\\footer.html',
-        'header-html': 'D:\github_repos\mdwntopdf\\api\\templates\\header.html',
+
         'no-outline':None,
         'title': title
         }
