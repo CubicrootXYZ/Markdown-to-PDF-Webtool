@@ -250,7 +250,7 @@ class CheckFile():
         try:
             val = db.table(prefix+'files').where('file_key', key).count()
         except: 
-            esp.status = falcon.HTTP_503
+            resp.status = falcon.HTTP_503
             return
 
         if val > 0:
