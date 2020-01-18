@@ -255,7 +255,7 @@ class CheckFile():
 
         if val > 0:
             try: 
-                resp.body = json.dumps({"status": "success", "data": {"file_status": "exists", "url": baseurl+"file?key="+key}}) 
+                resp.body = json.dumps({"status": "success", "data": {"file_status": "exists", "url": baseurl+"/file?key="+key}}) 
                 resp.status = falcon.HTTP_200
             except:
                 resp.status = falcon.HTTP_404
