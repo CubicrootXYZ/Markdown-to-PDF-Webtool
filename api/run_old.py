@@ -204,6 +204,7 @@ class GetFile():
 
         try: 
             resp.set_header("Content-Disposition", "attachment; filename="+key+".pdf")
+            resp.content_type = "application/pdf"
             resp.data = val['file']
             resp.status = falcon.HTTP_200
         except:
