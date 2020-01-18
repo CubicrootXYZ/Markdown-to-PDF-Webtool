@@ -146,7 +146,7 @@ class MarkdownToPdf():
                     'file_key': key,
                     'file': file_
                 })
-                data = {"status": "success", "data": {"key": key, "url": baseurl+key}}
+                data = {"status": "success", "data": {"key": key, "url": baseurl+"/file?key="+key}}
             except Exception as e:
                 print(e)
                 data = {"status": "failure", "data": {}}
