@@ -171,7 +171,7 @@ class MarkdownToPdf():
         
 
         if md != False:
-            md = head+convertMarkdownToHtml(md.replace("/n", "<br>"))
+            md = head+convertMarkdownToHtml(md.replace("\n", "<br>"))
             md += "<br><div class='end'>www.piratenpartei.de</div>"
             key = datetime.datetime.now().strftime("%Y-%m-%d_")+randomString()
             font_config = FontConfiguration()
