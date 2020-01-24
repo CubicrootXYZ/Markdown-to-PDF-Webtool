@@ -2,6 +2,7 @@
 import configparser, falcon, os, logging, pytz, datetime, json, pdfkit, markdown, random, string
 from orator import DatabaseManager, Model
 from weasyprint import HTML
+from weasyprint.fonts import FontConfiguration
 
 head = """
         <style>
