@@ -183,7 +183,7 @@ class MarkdownToPdf():
                     'file_key': key,
                     'file': file_
                 })
-                data = {"status": "success", "data": {"key": key, "url": baseurl+key}}
+                data = {"status": "success", "data": {"key": key, "url": baseurl+"/file?key="+key}}
             except Exception as e:
                 print(e)
                 data = {"status": "failure", "data": {}}
@@ -241,6 +241,7 @@ class GetFile():
 
         try: 
             resp.set_header("Content-Disposition", "attachment; filename="+key+".pdf")
+            resp.content_type = "application/pdf"
             resp.data = val['file']
             resp.status = falcon.HTTP_200
         except:
@@ -287,12 +288,12 @@ class CheckFile():
         try:
             val = db.table(prefix+'files').where('file_key', key).count()
         except: 
-            esp.status = falcon.HTTP_503
+            resp.status = falcon.HTTP_503
             return
 
         if val > 0:
             try: 
-                resp.body = json.dumps({"status": "success", "data": {"file_status": "exists", "url": baseurl+"file?key="+key}}) 
+                resp.body = json.dumps({"status": "success", "data": {"file_status": "exists", "url": baseurl+"/file?key="+key}}) 
                 resp.status = falcon.HTTP_200
             except:
                 resp.status = falcon.HTTP_404
