@@ -25,6 +25,7 @@ head = """
     h1 {
         font-size: 250%;
         font-family: 'Politics Head', sans-serif;
+        font-weight: 600;
     }
     h2 {
         font-size: 200%;
