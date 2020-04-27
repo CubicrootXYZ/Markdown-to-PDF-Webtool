@@ -141,7 +141,7 @@ head = """
     """
 
 def convertMarkdownToHtml(md):
-    return markdown.markdown(md, encoding="utf-8")
+    return markdown.markdown(md, extensions=['tables', 'toc'], encoding="utf-8")
 
 def makePdfFromHtml(self, html, title):
     options = {
