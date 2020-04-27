@@ -6,87 +6,138 @@ from weasyprint.fonts import FontConfiguration
 
 head = """
         <style>
-    @font-face {
-        font-family: 'Politics Head';
-        src: url(fonts/ph.ttf);
-    }
-
-    body {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: normal;
-        font-size: 85%;
-        overflow-wrap: break-word !important;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        color: #ff8800;
-        font-weight: 900;
+            @font-face {
+                font-family: 'Politics Head';
+                src: url(fonts/ph.ttf);
+            }
+            @font-face {
+                font-family: 'Roboto';
+                src: url(fonts/Roboto-Regular.ttf);
+            }
+            @font-face {
+                font-family: 'Roboto-Bold';
+                src: url(fonts/Roboto-Medium.ttf);
+            }
         
-    }
-    h1 {
-        font-size: 250%;
-        font-family: 'Politics Head', sans-serif;
-        font-weight: 600;
-    }
-    h2 {
-        font-size: 200%;
-    }
-    h3 {
-        font-size: 160%;
-    }
-    h4 {
-        font-size: 140%
-    }
-    h5 {
-        font-size: 120%;
-    }
-    h6 {
-        font-size: 100%;
-    }
-    blockquote {
-        margin-left: 1rem;
-        padding: 1rem;
-        background: #FFE1BF;
-        border-left: 2px solid #ff8800;
-        }
-    img {
-        margin: auto;
-        display: block;
-        max-width: 70%;
-    }
-    a, a:active, a:hover, a:visited {
-        color: #ff8800;
-    }
-    code {
-        background: #e3e3e3;
-        padding: 2px;
-        border-radius: 4px;
-    }
-    p {
-        padding-bottom: 0.2rem;
-        margin-bottom: 0rem; 
-    }
-
-    @page {
-        size: A4;
-        margin: 18mm;
-    @bottom-center{
-        content: "Seite " counter(page) " / " counter(pages);
-        font-family: "Open Sans", sans-serif;
-        color: #969292;
-        font-size: 75%;
-    }
-    }
-    .end {
-        width: 100%;
-        text-align: center;
-        padding-top: 5rem;
-        color: #969292;
-        font-size: 75%;
-        display: block;
-    }
-
-    
-    </style>
+            body {
+                font-family: 'Roboto';
+                font-weight: normal;
+                font-size: 85%;
+                overflow-wrap: break-word !important;
+            }
+            h1 {
+                color: #ff8800;
+                font-weight: 600 !important;
+                
+            }
+            h2,h3,h4,h5,h6 {
+                font-weight: 800;
+                font-family: 'Roboto-Bold'
+            }
+            h1 {
+                font-size: 250%;
+                font-family: 'Politics Head', sans-serif;
+                margin-bottom: 3rem;
+                margin-top: 2rem;
+                text-align: center;
+            }
+            h2 {
+                font-size: 200%;
+            }
+            h3 {
+                font-size: 160%;
+            }
+            h4 {
+                font-size: 140%
+            }
+            h5 {
+                font-size: 120%;
+            }
+            h6 {
+                font-size: 100%;
+            }
+            blockquote {
+                margin-left:0;
+                padding: 1rem;
+                background: rgb(228, 228, 228);
+                border-left: 3px solid #ff8800;
+                }
+            img {
+                margin: auto;
+                display: block;
+                max-width: 70%;
+            }
+            a, a:active, a:hover, a:visited {
+                color: #ff8800;
+            }
+            code {
+                background: #e3e3e3;
+                padding: 2px;
+                border-radius: 4px;
+                font-size: 110%;
+            }
+            p {
+                padding-bottom: 0.2rem;
+                margin-bottom: 0rem; 
+                text-align: justify;
+                line-height: 150%;
+            }
+        
+            @page {
+                size: A4;
+                margin: 18mm;
+            @bottom-center{
+                content: "Seite " counter(page) " / " counter(pages);
+                font-family: "Open Sans", sans-serif;
+                color: #969292;
+                font-size: 75%;
+            }
+            }
+            .end {
+                width: 100%;
+                text-align: center;
+                padding-top: 5rem;
+                color: #969292;
+                font-size: 75%;
+                display: block;
+            }
+            .toc {
+                display: block;
+                padding: 2rem;
+                background:rgb(228, 228, 228);
+                margin: 0;
+                padding-left: 5rem;
+                padding-right: 5rem;
+                margin-bottom: 5rem;
+            }
+            .toc ul {
+                list-style-type: disc;
+            }
+            .toc li a, .toc li{
+                text-decoration: none;
+                font-size: 14pt;
+            }
+            .toc:before {
+                content: 'Inhalt';
+                font-family: 'Roboto-Bold';
+                font-size: 200%;
+                font-weight: 600;
+            }
+            table th, table td {
+                padding: 0.4rem;
+                padding-left: 0.6rem;
+                padding-right: 0.6rem;
+            }
+            table thead tr {
+                border-bottom: 2px solid #ff8800;
+            }
+            table {
+                border-collapse: collapse;
+                margin: auto;
+            }
+        
+            
+            </style>
     """
 
 def convertMarkdownToHtml(md):
