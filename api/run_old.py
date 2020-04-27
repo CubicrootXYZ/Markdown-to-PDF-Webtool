@@ -112,6 +112,7 @@ head = """
             }
             .toc ul {
                 list-style-type: disc;
+                padding-left:15px;
             }
             .toc li a, .toc li{
                 text-decoration: none;
@@ -135,13 +136,16 @@ head = """
                 border-collapse: collapse;
                 margin: auto;
             }
+            table p {
+                text-align: inherit;
+            }
         
             
             </style>
     """
 
 def convertMarkdownToHtml(md):
-    return markdown.markdown(md, extensions=['tables', 'toc'], encoding="utf-8")
+    return markdown.markdown(md, extensions=['tables', 'toc', 'pymdownx.tilde'], encoding="utf-8")
 
 def makePdfFromHtml(self, html, title):
     options = {
