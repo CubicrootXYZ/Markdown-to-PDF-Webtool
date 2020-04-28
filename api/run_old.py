@@ -61,6 +61,7 @@ head = """
                 padding: 1rem;
                 background: rgb(228, 228, 228);
                 border-left: 3px solid #ff8800;
+                width:100%;
                 }
             img {
                 margin: auto;
@@ -104,11 +105,12 @@ head = """
             .toc {
                 display: block;
                 padding: 2rem;
-                background:rgb(228, 228, 228);
+                background:#383838;
                 margin: 0;
                 padding-left: 5rem;
                 padding-right: 5rem;
                 margin-bottom: 5rem;
+                color: white;
             }
             .toc ul {
                 list-style-type: disc;
