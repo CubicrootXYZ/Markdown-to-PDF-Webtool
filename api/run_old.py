@@ -61,7 +61,7 @@ head = """
                 padding: 1rem;
                 background: rgb(228, 228, 228);
                 border-left: 3px solid #ff8800;
-                width:100%;
+                display: block;
                 }
             img {
                 margin: auto;
@@ -118,7 +118,7 @@ head = """
             }
             .toc li a, .toc li{
                 text-decoration: none;
-                font-size: 14pt;
+                font-size: 12pt;
             }
             .toc:before {
                 content: 'Inhalt';
