@@ -4,15 +4,16 @@ from orator import DatabaseManager, Model
 from weasyprint import HTML
 from weasyprint.fonts import FontConfiguration
 
+
 head = """
         <style>
             @font-face {
-                font-family: 'Politics Head';
-                src: url(fonts/ph.ttf);
+                font-family: 'Roboto Headline';
+                src: url(fonts/RobotoCondensed-Bold.ttf);
             }
             @font-face {
                 font-family: 'Roboto';
-                src: url(fonts/Roboto-Regular.ttf);
+                src: url(fonts/RobotoCondensed-Regular.ttf);
             }
             @font-face {
                 font-family: 'Roboto-Bold';
@@ -26,7 +27,7 @@ head = """
                 overflow-wrap: break-word !important;
             }
             h1 {
-                color: #ff8800;
+                color: #4a84e8;
                 font-weight: 600 !important;
                 
             }
@@ -36,7 +37,7 @@ head = """
             }
             h1 {
                 font-size: 250%;
-                font-family: 'Politics Head', sans-serif;
+                font-family: 'Roboto Headline', sans-serif;
                 margin-bottom: 3rem;
                 margin-top: 2rem;
                 text-align: center;
@@ -60,8 +61,7 @@ head = """
                 margin-left:0;
                 padding: 1rem;
                 background: rgb(228, 228, 228);
-                border-left: 3px solid #ff8800;
-                display: block;
+                border-left: 3px solid #4a84e8;
                 }
             img {
                 margin: auto;
@@ -69,7 +69,7 @@ head = """
                 max-width: 70%;
             }
             a, a:active, a:hover, a:visited {
-                color: #ff8800;
+                color: #4a84e8;
             }
             code {
                 background: #e3e3e3;
@@ -88,7 +88,7 @@ head = """
                 size: A4;
                 margin: 18mm;
             @bottom-center{
-                content: "Seite " counter(page) " / " counter(pages);
+                content: "Page " counter(page) " / " counter(pages);
                 font-family: "Open Sans", sans-serif;
                 color: #969292;
                 font-size: 75%;
@@ -105,20 +105,18 @@ head = """
             .toc {
                 display: block;
                 padding: 2rem;
-                background:#383838;
+                background:rgb(228, 228, 228);
                 margin: 0;
                 padding-left: 5rem;
                 padding-right: 5rem;
                 margin-bottom: 5rem;
-                color: white;
             }
             .toc ul {
                 list-style-type: disc;
-                padding-left:15px;
             }
             .toc li a, .toc li{
                 text-decoration: none;
-                font-size: 12pt;
+                font-size: 14pt;
             }
             .toc:before {
                 content: 'Inhalt';
@@ -132,14 +130,11 @@ head = """
                 padding-right: 0.6rem;
             }
             table thead tr {
-                border-bottom: 2px solid #ff8800;
+                border-bottom: 2px solid #4a84e8;
             }
             table {
                 border-collapse: collapse;
                 margin: auto;
-            }
-            table p {
-                text-align: inherit;
             }
         
             
@@ -228,8 +223,8 @@ class MarkdownToPdf():
         
 
         if md != False:
-            md = head+convertMarkdownToHtml(md)
-            md += "<br><div class='end'>www.piratenpartei.de</div>"
+            md = head+convertMarkdownToHtml(md.replace("/n", "<br>"))
+            #md += "<br><div class='end'>www.piratenpartei.de</div>"
             key = datetime.datetime.now().strftime("%Y-%m-%d_")+randomString()
             font_config = FontConfiguration()
             file_ = HTML(string=md).write_pdf(font_config=font_config)
@@ -241,7 +236,7 @@ class MarkdownToPdf():
                     'file_key': key,
                     'file': file_
                 })
-                data = {"status": "success", "data": {"key": key, "url": baseurl+"/file?key="+key}}
+                data = {"status": "success", "data": {"key": key, "url": baseurl+key}}
             except Exception as e:
                 print(e)
                 data = {"status": "failure", "data": {}}
@@ -346,12 +341,12 @@ class CheckFile():
         try:
             val = db.table(prefix+'files').where('file_key', key).count()
         except: 
-            resp.status = falcon.HTTP_503
+            esp.status = falcon.HTTP_503
             return
 
         if val > 0:
             try: 
-                resp.body = json.dumps({"status": "success", "data": {"file_status": "exists", "url": baseurl+"/file?key="+key}}) 
+                resp.body = json.dumps({"status": "success", "data": {"file_status": "exists", "url": baseurl+"file?key="+key}}) 
                 resp.status = falcon.HTTP_200
             except:
                 resp.status = falcon.HTTP_404
@@ -365,5 +360,7 @@ api.req_options.auto_parse_form_urlencoded=True
 api.add_route('/markdowntopdf', MarkdownToPdf())
 api.add_route('/file', GetFile())
 api.add_route('/checkfile', CheckFile())
+
+
 
 

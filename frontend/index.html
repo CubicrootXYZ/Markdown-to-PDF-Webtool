@@ -12,11 +12,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Markdown zu PDF Konvertierer | Piratenpartei</title>
+  <title>Markdown 2 PDF Converter</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  
+  <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -34,22 +34,23 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon ">
-         <img src="img/logo.png">
+
+        <div class="sidebar-brand-icon rotate-n-5">
+          <i class="fas fa-random"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Piratenkonvertierer</div>
+        <div class="sidebar-brand-text mx-3">Converter</div>
        
       </a>
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Konvertieren
+        CONVERT
       </div>
 
        <li class="nav-item">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-random"></i>
-          <span>Markdown zu PDF</span></a>
+          <span>Markdown to PDF</span></a>
       </li>
 
       
@@ -90,7 +91,7 @@
 
         <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
-            <h1 class="h3 mb-0 text-gray-800">PDF Datei erstellen</h1>
+            <h1 class="h3 mb-0 text-gray-800">Make PDF File</h1>
             
           </div>
 
@@ -98,17 +99,17 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4 status hiden">
             <h1 class="h3 mb-0 text-gray-800 statustext"></h1><br>
             <div class="lds-facebook hiden"><div></div><div></div><div></div></div>
-            <a href="#" class="statusbtn btn btn-success hiden">Datei herunterladen</a>
+            <a href="#" class="statusbtn btn btn-success hiden">Download File</a>
             
           </div>
 
           <div class="row">
             <div class="col-sm-12">
             <div class="textarea">
-            <small>Hier Markdown eingeben</small><br>
+            <small>Enter Markdown Here:</small><br>
             
-              <textarea placeholder="# Das ist eine Überschrift" class="inputmdwn"></textarea><br><br>
-              <button class="btn btn-success btnmdwn">Datei erstellen</button>
+              <textarea placeholder="# This is a title" class="inputmdwn"></textarea><br><br>
+              <button class="btn btn-success btnmdwn">Make File</button>
               </div>
             </div>
 
@@ -129,7 +130,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span><a href="imprint.html">Impressum & Datenschutzerklärung</a></span>
+            <span><a href="#YOURIMPRINTLINKHERE">Imprint & Privacy Policy</a></span>
           </div>
         </div>
       </footer>
@@ -172,7 +173,7 @@ $('.btnmdwn').click(function(){
         $(".status").addClass("load");
         $(".status").addClass("shown");
         $(".statusbtn").removeClass("shown")
-        $(".statustext").html("Sende");
+        $(".statustext").html("Sending ...");
         $(".lds-facebook").addClass("shown");
         var formData = new Object();
         formData.markdown = $('.inputmdwn').val();
@@ -192,7 +193,7 @@ $('.btnmdwn').click(function(){
                   
                   $(".status").removeClass("load");
                   $(".status").addClass("success");
-                  $(".statustext").html("Daten abgesendet<br><small>Warten auf Datei</small>");
+                  $(".statustext").html("Data send<br><small>Waiting for File</small>");
                   key = result["data"]["key"];
                   getFile('/checkfile', {'key': key}, 0);
                   console.log(key);
@@ -201,7 +202,7 @@ $('.btnmdwn').click(function(){
                   $(".status").removeClass("load");
                 $(".status").addClass("fail");
                 $(".status").addClass("shown");
-                $(".statustext").html("Systemfehler");
+                $(".statustext").html("Error - Error in System");
                 $(".lds-facebook").removeClass("shown");
                 }
             },
@@ -209,7 +210,7 @@ $('.btnmdwn').click(function(){
                 $(".status").removeClass("load");
                 $(".status").addClass("fail");
                 $(".status").addClass("shown");
-                $(".statustext").html("System nicht erreichbar");
+                $(".statustext").html("Error - System not reachable");
                 $(".lds-facebook").removeClass("shown");
             }
         });
@@ -230,10 +231,11 @@ function getFile(endpoint, formData, cnt){
             async: true,
             success: function(response, status, xhr) {
                 result = response;
-                if (response['status'] == "success") {
+                if (response['status'] == "success" && response['data']['file_status'] == "exists") {
                   $(".status").removeClass("fail");
+                  $(".status").removeClass("load");
                   $(".status").addClass("success");
-                  $(".statustext").html("Datei fertig");
+                  $(".statustext").html("File ready");
                   $(".statusbtn").addClass("shown");
                   $(".statusbtn").attr("href", response['data']['url'])
                   $(".lds-facebook").removeClass("shown");
@@ -242,14 +244,14 @@ function getFile(endpoint, formData, cnt){
                     $(".status").removeClass("success");
                     $(".status").removeClass("fail");
                     $(".status").addClass("load");
-                    $(".statustext").html("Datei lädt");
+                    $(".statustext").html("Loading File");
                     $(".statusbtn").removeClass("shown");
                     $(".lds-facebook").addClass("shown");
                   } else {
                     $(".status").removeClass("success");
                     $(".status").removeClass("load");
                     $(".status").addClass("fail");
-                    $(".statustext").html("Datei nicht gefunden");
+                    $(".statustext").html("File not found");
                     $(".statusbtn").removeClass("shown");
                     $(".lds-facebook").removeClass("shown");
                   }
@@ -264,11 +266,11 @@ function getFile(endpoint, formData, cnt){
                 
                 if (cnt < 70) {
                   $(".status").addClass("load");
-                  $(".statustext").html("Datei lädt");
+                  $(".statustext").html("File loads");
                   setTimeout(() => {  getFile('/checkfile', formData, cnt + 1); }, 5000);
                 } else {
                   $(".status").addClass("fail");
-                  $(".statustext").html("Datei nicht gefunden");
+                  $(".statustext").html("File not found");
                 }
                 
             }
